@@ -46,5 +46,5 @@ SOURCES=(
     source/com/aletheiaware/joy/utils/JoyUtils.java
 )
 
-javac -cp libs/protobuf-lite-3.0.1.jar ${SOURCES[*]} -d out/code
+javac -cp ../JavaCommon/libs/protobuf-java-3.9.1.jar ${SOURCES[*]} -d out/code
 jar cvf out/JoyJava.jar -C out/code .

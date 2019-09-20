@@ -13,7 +13,7 @@ Libraries
 Protocol Buffers
 
     cd <path/to/Joy>
-    ./build.sh --javalite_out=<path/to/JoyJava>/source/
+    ./build.sh --java_out=lite:<path/to/JoyJava>/source/
 
 Build
 =====
