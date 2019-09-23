@@ -5,10 +5,10 @@ This is a Java implementation of Joy.
 
 Setup
 =====
-Libraries
+JoyJava should be in the same parent directory as the following prerequisite projects;
 
-    mkdir libs
-    ln -s <protolib> libs/protobuf-lite-3.0.1.jar
+    JavaCommon
+    Joy
 
 Protocol Buffers
 
