@@ -16,14 +16,14 @@
 
 package com.aletheiaware.joy.scene;
 
-import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class Scene {
 
-    private final Map<String, float[]> floats = new HashMap<>();
-    private final Map<String, Matrix> matrices = new HashMap<>();
-    private final Map<String, Vector> vectors = new HashMap<>();
+    private final Map<String, float[]> floats = new ConcurrentHashMap<>();
+    private final Map<String, Matrix> matrices = new ConcurrentHashMap<>();
+    private final Map<String, Vector> vectors = new ConcurrentHashMap<>();
 
     public float[] getFloatArray(String name) {
         return floats.get(name);
