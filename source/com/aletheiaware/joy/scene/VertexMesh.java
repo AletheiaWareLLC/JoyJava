@@ -29,22 +29,24 @@ import com.aletheiaware.joy.JoyProto.Mesh;
 
 public class VertexMesh {
 
-    public final int bufferSize;
-    public final int numVertices;
+    public final int vertexCount;
+    public final int vertexBufferSize;
     public final FloatBuffer vertexBuffer;
 
-    public VertexMesh(int size, int vertices, FloatBuffer vb) {
-        this.bufferSize = size;
-        this.numVertices = vertices;
+    public VertexMesh(int vertices, FloatBuffer vb) {
+        this.vertexCount = vertices;
+        System.out.println("VertexCount: " + vertexCount);
+        this.vertexBufferSize = vertices * 3 * 4;// *3:xyz, *4:sizeof(float)
+        System.out.println("VertexBufferSize: " + vertexBufferSize);
         this.vertexBuffer = vb;
     }
 
     public VertexMesh(Mesh mesh) throws IOException {
-        this.numVertices = mesh.getVertices();
-        System.out.println("Vertices: " + numVertices);
-        this.bufferSize = numVertices * 3 * 4;// *3:xyz, *4:sizeof(float)
-        System.out.println("Buffer: " + bufferSize);
-        final ByteBuffer vbb = ByteBuffer.allocateDirect(bufferSize);
+        this.vertexCount = mesh.getVertices();
+        System.out.println("VertexCount: " + vertexCount);
+        this.vertexBufferSize = vertexCount * 3 * 4;// *3:xyz, *4:sizeof(float)
+        System.out.println("VertexBufferSize: " + vertexBufferSize);
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(vertexBufferSize);
         vbb.order(ByteOrder.nativeOrder());
         this.vertexBuffer = vbb.asFloatBuffer();
         List<Double> vs = mesh.getVertexList();
@@ -63,12 +65,12 @@ public class VertexMesh {
     }
 
     public VertexMesh(DataInputStream in) throws IOException {
-        this.numVertices = in.readInt();
-        this.bufferSize = numVertices * 3 * 4;// *3:xyz, *4:sizeof(float)
-        final ByteBuffer vbb = ByteBuffer.allocateDirect(bufferSize);
+        this.vertexCount = in.readInt();
+        this.vertexBufferSize = vertexCount * 3 * 4;// *3:xyz, *4:sizeof(float)
+        final ByteBuffer vbb = ByteBuffer.allocateDirect(vertexBufferSize);
         vbb.order(ByteOrder.nativeOrder());
         this.vertexBuffer = vbb.asFloatBuffer();
-        for (int i = 0; i < numVertices; i++) {
+        for (int i = 0; i < vertexCount; i++) {
             // Vertex
             vertexBuffer.put(in.readFloat());
             vertexBuffer.put(in.readFloat());

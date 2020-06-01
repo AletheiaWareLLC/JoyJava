@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Aletheia Ware LLC
+ * Copyright 2020 Aletheia Ware LLC
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -27,38 +27,48 @@ import java.util.List;
 
 import com.aletheiaware.joy.JoyProto.Mesh;
 
-public class VertexNormalMesh {
+public class VertexNormalTextureMesh {
 
     public final int vertexCount;
     public final int vertexBufferSize;
     public final int normalBufferSize;
+    public final int textureBufferSize;
     public final FloatBuffer vertexBuffer;
     public final FloatBuffer normalBuffer;
+    public final FloatBuffer textureBuffer;
 
-    public VertexNormalMesh(int vertices, FloatBuffer vb, FloatBuffer nb) {
+    public VertexNormalTextureMesh(int vertices, FloatBuffer vb, FloatBuffer nb, FloatBuffer tb) {
         this.vertexCount = vertices;
         System.out.println("VertexCount: " + vertexCount);
         this.vertexBufferSize = vertices * 3 * 4;// *3:xyz, *4:sizeof(float)
         System.out.println("VertexBufferSize: " + vertexBufferSize);
         this.normalBufferSize = vertices * 3 * 4;// *3:xyz, *4:sizeof(float)
         System.out.println("NormalBufferSize: " + normalBufferSize);
+        this.textureBufferSize = vertices * 2 * 4;// *3:uv, *4:sizeof(float)
+        System.out.println("TextureBufferSize: " + textureBufferSize);
         this.vertexBuffer = vb;
         this.normalBuffer = nb;
+        this.textureBuffer = tb;
     }
 
-    public VertexNormalMesh(Mesh mesh) throws IOException {
+    public VertexNormalTextureMesh(Mesh mesh) throws IOException {
         this.vertexCount = mesh.getVertices();
-        System.out.println("VertexCount: " + vertexCount);
+        System.out.println("Vertices: " + vertexCount);
         this.vertexBufferSize = vertexCount * 3 * 4;// *3:xyz, *4:sizeof(float)
         this.normalBufferSize = vertexCount * 3 * 4;// *3:xyz, *4:sizeof(float)
+        this.textureBufferSize = vertexCount * 2 * 4;// *2:uv, *4:sizeof(float)
         System.out.println("VertexBufferSize: " + vertexBufferSize);
         System.out.println("NormalBufferSize: " + normalBufferSize);
+        System.out.println("TextureBufferSize: " + textureBufferSize);
         final ByteBuffer vbb = ByteBuffer.allocateDirect(vertexBufferSize);
         final ByteBuffer nbb = ByteBuffer.allocateDirect(normalBufferSize);
+        final ByteBuffer tbb = ByteBuffer.allocateDirect(textureBufferSize);
         vbb.order(ByteOrder.nativeOrder());
         nbb.order(ByteOrder.nativeOrder());
+        tbb.order(ByteOrder.nativeOrder());
         this.vertexBuffer = vbb.asFloatBuffer();
         this.normalBuffer = nbb.asFloatBuffer();
+        this.textureBuffer = tbb.asFloatBuffer();
         List<Double> vs = mesh.getVertexList();
         System.out.println("Vertices: " + vs.size());
         for (Double v : vs) {
@@ -69,26 +79,35 @@ public class VertexNormalMesh {
         for (Double n : ns) {
             normalBuffer.put(n.floatValue());
         }
+        List<Double> ts = mesh.getTexCoordList();
+        System.out.println("Textures: " + ts.size());
+        for (Double t : ts) {
+            textureBuffer.put(t.floatValue());
+        }
     }
 
-    public VertexNormalMesh(byte[] data) throws IOException {
+    public VertexNormalTextureMesh(byte[] data) throws IOException {
         this(new ByteArrayInputStream(data));
     }
 
-    public VertexNormalMesh(InputStream in) throws IOException {
+    public VertexNormalTextureMesh(InputStream in) throws IOException {
         this(new DataInputStream(in));
     }
 
-    public VertexNormalMesh(DataInputStream in) throws IOException {
+    public VertexNormalTextureMesh(DataInputStream in) throws IOException {
         this.vertexCount = in.readInt();
         this.vertexBufferSize = vertexCount * 3 * 4;// *3:xyz, *4:sizeof(float)
         this.normalBufferSize = vertexCount * 3 * 4;// *3:xyz, *4:sizeof(float)
+        this.textureBufferSize = vertexCount * 2 * 4;// *2:uv, *4:sizeof(float)
         final ByteBuffer vbb = ByteBuffer.allocateDirect(vertexBufferSize);
         final ByteBuffer nbb = ByteBuffer.allocateDirect(normalBufferSize);
+        final ByteBuffer tbb = ByteBuffer.allocateDirect(textureBufferSize);
         vbb.order(ByteOrder.nativeOrder());
         nbb.order(ByteOrder.nativeOrder());
+        tbb.order(ByteOrder.nativeOrder());
         this.vertexBuffer = vbb.asFloatBuffer();
         this.normalBuffer = nbb.asFloatBuffer();
+        this.textureBuffer = tbb.asFloatBuffer();
         for (int i = 0; i < vertexCount; i++) {
             // Vertex
             vertexBuffer.put(in.readFloat());
@@ -98,6 +117,9 @@ public class VertexNormalMesh {
             normalBuffer.put(in.readFloat());
             normalBuffer.put(in.readFloat());
             normalBuffer.put(in.readFloat());
+            // Texture
+            textureBuffer.put(in.readFloat());
+            textureBuffer.put(in.readFloat());
         }
     }
 

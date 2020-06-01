@@ -22,6 +22,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public class Scene {
 
     private final Map<String, float[]> floats = new ConcurrentHashMap<>();
+    private final Map<String, int[]> ints = new ConcurrentHashMap<>();
     private final Map<String, Matrix> matrices = new ConcurrentHashMap<>();
     private final Map<String, Vector> vectors = new ConcurrentHashMap<>();
 
@@ -31,6 +32,14 @@ public class Scene {
 
     public void putFloatArray(String name, float[] array) {
         floats.put(name, array);
+    }
+
+    public int[] getIntArray(String name) {
+        return ints.get(name);
+    }
+
+    public void putIntArray(String name, int[] array) {
+        ints.put(name, array);
     }
 
     public Matrix getMatrix(String name) {

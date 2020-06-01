@@ -38,11 +38,13 @@ SOURCES=(
     source/com/aletheiaware/joy/scene/ScaleNode.java
     source/com/aletheiaware/joy/scene/Scene.java
     source/com/aletheiaware/joy/scene/SceneGraphNode.java
+    source/com/aletheiaware/joy/scene/TextureAttribute.java
     source/com/aletheiaware/joy/scene/TransformationNode.java
     source/com/aletheiaware/joy/scene/TranslateNode.java
     source/com/aletheiaware/joy/scene/Vector.java
     source/com/aletheiaware/joy/scene/VertexMesh.java
     source/com/aletheiaware/joy/scene/VertexNormalMesh.java
+    source/com/aletheiaware/joy/scene/VertexNormalTextureMesh.java
     source/com/aletheiaware/joy/utils/JoyUtils.java
 )
 
