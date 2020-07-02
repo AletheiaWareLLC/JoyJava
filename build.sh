@@ -30,6 +30,7 @@ SOURCES=(
     source/com/aletheiaware/joy/scene/AttributeNode.java
     source/com/aletheiaware/joy/scene/ColourAttribute.java
     source/com/aletheiaware/joy/scene/LightNode.java
+    source/com/aletheiaware/joy/scene/MaterialAttribute.java
     source/com/aletheiaware/joy/scene/Matrix.java
     source/com/aletheiaware/joy/scene/MatrixTransformationNode.java
     source/com/aletheiaware/joy/scene/MeshLoader.java
