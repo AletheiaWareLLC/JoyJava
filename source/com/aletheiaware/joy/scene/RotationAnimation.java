@@ -60,6 +60,9 @@ public class RotationAnimation extends Animation {
         // System.out.println("Tick " + progress + "/" + duration + " : " + angle);
         temp.makeRotationAxis(angle, axis);
         rotation.makeMultiplication(rotation, temp);
+        if (!inverse.makeInverse(rotation)) {
+            System.err.println("Matrix invert failed");
+        }
         if (progress >= duration) {
             JoyUtils.round(rotation.get());// Round rotation to proper values
             return true;
