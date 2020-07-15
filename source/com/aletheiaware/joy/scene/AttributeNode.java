@@ -39,5 +39,9 @@ public class AttributeNode extends SceneGraphNode {
 
     @Override
     public void after(Scene scene) {
+        // Unapply attributes
+        for (Attribute a : attributes) {
+            a.unset(scene);
+        }
     }
 }

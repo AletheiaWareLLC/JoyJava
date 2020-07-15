@@ -19,4 +19,6 @@ package com.aletheiaware.joy.scene;
 public interface Attribute {
 
     void set(Scene scene);
+
+    void unset(Scene scene);
 }
