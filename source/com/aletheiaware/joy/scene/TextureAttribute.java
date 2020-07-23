@@ -18,16 +18,15 @@ package com.aletheiaware.joy.scene;
 
 public abstract class TextureAttribute implements Attribute {
 
-    public final String textureName;
+    public TextureAttribute() {}
 
-    public TextureAttribute(String textureName) {
-        this.textureName = textureName;
-    }
-
-    public int[] getTexture(Scene scene) {
-        if (textureName == null) {
+    public int[] getTexture(Scene scene, String texture) {
+        if (texture == null) {
             throw new RuntimeException("No texture set");
         }
-        return scene.getIntArray(textureName);
+        return scene.getIntArray(texture);
     }
+
+    public abstract String getTextureName(Scene scene);
+
 }
