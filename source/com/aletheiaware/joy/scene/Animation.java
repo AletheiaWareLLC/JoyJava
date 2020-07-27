@@ -32,6 +32,15 @@ public abstract class Animation {
     public abstract boolean tick();
 
     /**
+     * Called once the animation begins.
+     *
+     * <p>Subclasses should override to perform an action at the start of the animation.
+     */
+    public void onBegin() {
+        // Do nothing
+    }
+
+    /**
      * Called once the animation is complete.
      *
      * <p>Subclasses should override to perform an action at the end of the animation.

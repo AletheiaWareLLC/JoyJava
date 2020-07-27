@@ -26,6 +26,28 @@ public class Scene {
     private final Map<String, Matrix> matrices = new ConcurrentHashMap<>();
     private final Map<String, Vector> vectors = new ConcurrentHashMap<>();
 
+    private Animation animation = null;
+
+    public void setAnimation(Animation a) {
+        if (animation == null) {
+            animation = a;
+        } else {
+            System.err.println("Animation dropped: " + a);
+            System.err.println("Current animation: " + animation);
+        }
+    }
+
+    public boolean hasAnimation() {
+        return animation != null;
+    }
+
+    public void tick() {
+        if (animation != null && animation.tick()) {
+            animation.onComplete();
+            animation = null;
+        }
+    }
+
     public float[] getFloatArray(String name) {
         return floats.get(name);
     }
