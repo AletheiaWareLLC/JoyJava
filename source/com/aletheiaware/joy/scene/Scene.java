@@ -28,6 +28,10 @@ public class Scene {
 
     private Animation animation = null;
 
+    public void clearAnimation() {
+        animation = null;
+    }
+
     public void setAnimation(Animation a) {
         if (animation == null) {
             animation = a;
